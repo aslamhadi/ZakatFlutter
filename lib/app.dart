@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -71,6 +72,8 @@ class _MyHomePageState extends State<MyHomePage> {
       fontSize: 20.00,
       fontWeight: FontWeight.bold
     );
+
+    final idr = new NumberFormat("#,##0.00", "en_US");    
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.
     //
@@ -98,12 +101,12 @@ class _MyHomePageState extends State<MyHomePage> {
           new ListTile(
             leading: const Icon(Icons.attach_money),
             title: const Text('Harga Emas'),
-            subtitle: new Text(goldPrice.toString()), 
+            subtitle: new Text('Rp. ' + idr.format(goldPrice).toString()), 
           ),
           new ListTile(
             leading: const Icon(Icons.attach_money),
             title: new Text('Nishab Emas (' + nishab.toString() + 'gr)'),
-            subtitle: new Text(nishabRupiah.toString()), 
+            subtitle: new Text('Rp. ' + idr.format(nishabRupiah).toString()), 
           ),
           new ListTile(
             leading: const Icon(Icons.attach_money),
@@ -114,7 +117,7 @@ class _MyHomePageState extends State<MyHomePage> {
             leading: const Icon(Icons.attach_money),
             title: new Text('Jumlah Zakat'),
             subtitle: new Text(
-              _zakatValue.toString(),
+              'Rp. ' + idr.format(_zakatValue).toString(),
               style: textStyle,
             ), 
           ),
