@@ -46,23 +46,10 @@ class _MyHomePageState extends State<MyHomePage> {
   final TextEditingController _controller = new TextEditingController();
   int goldPrice = 588296;
   int nishab = 85;
-  int _counter = 0;
   bool _eligible = false;
   double _zakatValue = 0.00;
 
-  //var nishabRupiah = goldPrice * nishab;
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
-
-  void eligibleToZakat() {
+  void _eligibleToZakat() {
     var currentValue = int.parse(_controller.text);
     var nishabRupiah = goldPrice * nishab;
 
@@ -70,6 +57,11 @@ class _MyHomePageState extends State<MyHomePage> {
       setState(() {
         _eligible = true;
         _zakatValue = 2.5/100 * currentValue;
+      });
+    } else {
+      setState(() {
+        _eligible = false;
+        _zakatValue = 0.00;
       });
     } 
   }
@@ -122,7 +114,7 @@ class _MyHomePageState extends State<MyHomePage> {
             subtitle: new Text(_zakatValue.toString()), 
           ),
           new RaisedButton(
-            // onPressed: eligibleToZakat(),
+            onPressed: _eligibleToZakat,
             child: new Text('Hitung Zakat'),
           ),
         ],
