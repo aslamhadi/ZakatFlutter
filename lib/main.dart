@@ -43,8 +43,14 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  final TextEditingController _controller = new TextEditingController();
+  int goldPrice = 588296;
+  int nishab = 85;
   int _counter = 0;
+  bool _eligible = false;
+  double _zakatValue = 0.00;
 
+  //var nishabRupiah = goldPrice * nishab;
   void _incrementCounter() {
     setState(() {
       // This call to setState tells the Flutter framework that something has
@@ -56,10 +62,20 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  void eligibleToZakat() {
+    var currentValue = int.parse(_controller.text);
+    var nishabRupiah = goldPrice * nishab;
+
+    if (currentValue >= nishabRupiah) {
+      setState(() {
+        _eligible = true;
+        _zakatValue = 2.5/100 * currentValue;
+      });
+    } 
+  }
+
   @override
   Widget build(BuildContext context) {
-    var goldPrice = 588296;
-    var nishab = 85;
     var nishabRupiah = goldPrice * nishab;
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.
@@ -78,6 +94,7 @@ class _MyHomePageState extends State<MyHomePage> {
           new ListTile(
             leading: const Icon(Icons.money_off),
             title: new TextField(
+              controller: _controller,
               decoration: new InputDecoration(
                 hintText: "0"
               ),
@@ -91,9 +108,23 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           new ListTile(
             leading: const Icon(Icons.attach_money),
-            title: new Text('Nishab Emas' + nishab.toString()),
+            title: new Text('Nishab Emas (' + nishab.toString() + 'gr)'),
             subtitle: new Text(nishabRupiah.toString()), 
-          )
+          ),
+          new ListTile(
+            leading: const Icon(Icons.attach_money),
+            title: new Text('Sudah Wajib Zakat'),
+            subtitle: new Text(_eligible ? "Sudah" : "Belum"), 
+          ),
+          new ListTile(
+            leading: const Icon(Icons.attach_money),
+            title: new Text('Jumlah Zakat'),
+            subtitle: new Text(_zakatValue.toString()), 
+          ),
+          new RaisedButton(
+            // onPressed: eligibleToZakat(),
+            child: new Text('Hitung Zakat'),
+          ),
         ],
       )
     );
