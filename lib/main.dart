@@ -69,6 +69,10 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     var nishabRupiah = goldPrice * nishab;
+    const textStyle = const TextStyle(
+      fontSize: 20.00,
+      fontWeight: FontWeight.bold
+    );
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.
     //
@@ -111,7 +115,10 @@ class _MyHomePageState extends State<MyHomePage> {
           new ListTile(
             leading: const Icon(Icons.attach_money),
             title: new Text('Jumlah Zakat'),
-            subtitle: new Text(_zakatValue.toString()), 
+            subtitle: new Text(
+              _zakatValue.toString(),
+              style: textStyle,
+            ), 
           ),
           new RaisedButton(
             onPressed: _eligibleToZakat,
